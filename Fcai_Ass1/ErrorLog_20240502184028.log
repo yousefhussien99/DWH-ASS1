@@ -1,0 +1,4 @@
+System.Net.WebException: The remote name could not be resolved: 'api.coincap.io'
+   at System.Net.WebClient.DownloadDataInternal(Uri address, WebRequest& request)
+   at System.Net.WebClient.DownloadString(Uri address)
+   at ST_77c4954e4d1749f580a618eaf4f37210.ScriptMain.Main()

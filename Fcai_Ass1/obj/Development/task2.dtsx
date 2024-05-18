@@ -1,0 +1,2156 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/2/2024 4:48:44 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-KAFQMC6"
+  DTS:CreatorName="DESKTOP-KAFQMC6\dell"
+  DTS:DTSID="{B24CCFD5-A092-45D1-A33D-408B86D945F1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5397.1"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="43"
+  DTS:VersionGUID="{CDC75EE6-D188-420E-99EC-415B786B928F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1463A946-CAD7-4A55-A4B4-88DC77244843}"
+      DTS:ObjectName="DESKTOP-KAFQMC6.DW_Ass">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-KAFQMC6;Initial Catalog=DW_Ass;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{1463A946-CAD7-4A55-A4B4-88DC77244843}DESKTOP-KAFQMC6.DW_Ass;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{F50C6DA3-BF5A-42F5-90EC-6EC1EE5BCED3}"
+      DTS:ObjectName="OkdDate">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue"
+        xml:space="preserve"></DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Task2"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{3C605418-9FE7-454D-9A5F-D01547BA2A2D}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Task2">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{9C53DED5-F938-4B71-A9D2-CCD28445B97F}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="OldDate">
+          <DTS:VariableValue
+            DTS:DataType="8"
+            xml:space="preserve"></DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{AC9B92F0-CC44-476E-A4F7-B5091988BEEB}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Variable">
+          <DTS:VariableValue
+            DTS:DataType="8"
+            xml:space="preserve"></DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Task2\Get OldDate"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{878A3409-26C0-4101-BF87-33BBE078C0A8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get OldDate"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{1463A946-CAD7-4A55-A4B4-88DC77244843}"
+              SQLTask:SqlStatementSource="SELECT MAX(Update_Date) FROM Employee_History;&#xA;"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::OldDate" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Task2\task 2"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{652975A2-ADB1-4F62-9430-F275C9B8E9BB}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="task 2"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Task2\task 2\Check If Email Or City Change"
+                  componentClassID="Microsoft.ConditionalSplit"
+                  contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+                  name="Check If Email Or City Change"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input]"
+                      description="Input to the Conditional Split Transformation"
+                      name="Conditional Split Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input].Columns[City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="City"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input].Columns[Email]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Email"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input].Columns[old_City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="old_City"
+                          lineageId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_City]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input].Columns[old_Email]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="old_Email"
+                          lineageId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_Email]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Change]"
+                      description="Output 1 of the Conditional Split Transformation"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Change"
+                      synchronousInputId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                          name="Expression">(#{Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]} != #{Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_Email]}) || (#{Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]} != #{Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_City]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the friendly version of the expression. This expression version uses column names."
+                          expressionType="Notify"
+                          name="FriendlyExpression">(Email != old_Email) || (City != old_City)</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                          name="EvaluationOrder">0</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Conditional Split Default Output]"
+                      description="Default Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      name="Conditional Split Default Output"
+                      synchronousInputId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input]">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsDefaultOut">true</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Conditional Split Error Output]"
+                      description="Error Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Conditional Split Error Output"
+                      synchronousInputId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\Join With History"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Join With History"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT * FROM Employee_History WHERE [End_Date] IS NULL;</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT * FROM Employee_History WHERE [End_Date] IS NULL;) [refTable]
+where [refTable].[Original_ID] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="History_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Original_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="City" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Email" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Update_Date" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="End_Date" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Task2\task 2\370:invalid};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\Join With History.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\Join With History.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\Join With History.Inputs[Lookup Input].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">Original_ID</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Task2\task 2\Join With History.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_City]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_City]"
+                          name="old_City"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">City</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_Email]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[old_Email]"
+                          name="old_Email"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Email</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[StartDate]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Copy Column"
+                          length="10"
+                          lineageId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output].Columns[StartDate]"
+                          name="StartDate"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Update_Date</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Join With History.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Task2\task 2\Join With History.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Join With History.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Task2\task 2\Join With History.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Join With History.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Join With History.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Join With History.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Join With History.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\Multicast"
+                  componentClassID="Microsoft.Multicast"
+                  contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+                  name="Multicast">
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\Multicast.Inputs[Multicast Input 1]"
+                      name="Multicast Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\Multicast.Outputs[Multicast Output 1]"
+                      deleteOutputOnPathDetached="true"
+                      name="Multicast Output 1"
+                      synchronousInputId="Package\Task2\task 2\Multicast.Inputs[Multicast Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Multicast.Outputs[Multicast Output 2]"
+                      deleteOutputOnPathDetached="true"
+                      name="Multicast Output 2"
+                      synchronousInputId="Package\Task2\task 2\Multicast.Inputs[Multicast Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Multicast.Outputs[Multicast Output 4]"
+                      dangling="true"
+                      deleteOutputOnPathDetached="true"
+                      name="Multicast Output 4"
+                      synchronousInputId="Package\Task2\task 2\Multicast.Inputs[Multicast Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\Multicast 1"
+                  componentClassID="Microsoft.Multicast"
+                  contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
+                  name="Multicast 1">
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\Multicast 1.Inputs[Multicast Input 1]"
+                      name="Multicast Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\Multicast 1.Outputs[Multicast Output 3]"
+                      dangling="true"
+                      deleteOutputOnPathDetached="true"
+                      name="Multicast Output 3"
+                      synchronousInputId="Package\Task2\task 2\Multicast 1.Inputs[Multicast Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Multicast 1.Outputs[Multicast Output 1]"
+                      deleteOutputOnPathDetached="true"
+                      name="Multicast Output 1"
+                      synchronousInputId="Package\Task2\task 2\Multicast 1.Inputs[Multicast Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Multicast 1.Outputs[Multicast Output 2]"
+                      deleteOutputOnPathDetached="true"
+                      name="Multicast Output 2"
+                      synchronousInputId="Package\Task2\task 2\Multicast 1.Inputs[Multicast Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\OLE DB Destination 1"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination 1"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Employee_History]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\OLE DB Destination 1.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Name"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Name]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="City"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[Email]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Email"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Original_ID]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[Update_Date]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="Update_Date"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Update_Date]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Email" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[End_Date]"
+                          dataType="wstr"
+                          length="10"
+                          name="End_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[History_ID]"
+                          dataType="i4"
+                          name="History_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Original_ID]"
+                          dataType="i4"
+                          name="Original_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="wstr"
+                          length="10"
+                          name="Update_Date" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\OLE DB Destination 1.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\OLE DB Destination 1 1"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination 1 1"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Employee_History]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\OLE DB Destination 1 1.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].Columns[Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Name"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Name]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].Columns[City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="City"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].Columns[Email]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Email"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Original_ID]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].Columns[Update_Date]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="Update_Date"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Update_Date]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Email" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[End_Date]"
+                          dataType="wstr"
+                          length="10"
+                          name="End_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[History_ID]"
+                          dataType="i4"
+                          name="History_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Original_ID]"
+                          dataType="i4"
+                          name="Original_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="wstr"
+                          length="10"
+                          name="Update_Date" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\OLE DB Destination 1 1.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 1 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 1 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 1 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\OLE DB Destination 2"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination 2"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[TRG_EmployeeQ2]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\OLE DB Destination 2.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].Columns[Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Name"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Name]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].Columns[City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="City"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].Columns[Email]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Email"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].Columns[Update_Date]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="Update_Date"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Update_Date]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Email" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="wstr"
+                          length="10"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\OLE DB Destination 2.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 2.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 2.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\OLE DB Destination 2 1"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination 2 1"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[TRG_EmployeeQ2]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\OLE DB Destination 2 1.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].Columns[Name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Name"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Name]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].Columns[City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="City"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].Columns[Email]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="Email"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].Columns[Update_Date]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="Update_Date"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Update_Date]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="Email" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="wstr"
+                          length="10"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\OLE DB Destination 2 1.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 2 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\OLE DB Destination 2 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\OLE DB Destination 2 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\Remove Old Version"
+                  componentClassID="Microsoft.OLEDBCommand"
+                  contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+                  description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+                  name="Remove Old Version"
+                  usesDispositions="true"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">DELETE FROM TRG_EmployeeQ2
+WHERE ID= ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\Remove Old Version.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\Remove Old Version.Inputs[OLE DB Command Input]"
+                      errorOrTruncationOperation="Command Execution"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Command Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\Remove Old Version.Inputs[OLE DB Command Input].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Task2\task 2\Remove Old Version.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Remove Old Version.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          dataType="i4"
+                          name="Param_0">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\Remove Old Version.Outputs[OLE DB Command Output]"
+                      exclusionGroup="1"
+                      name="OLE DB Command Output"
+                      synchronousInputId="Package\Task2\task 2\Remove Old Version.Inputs[OLE DB Command Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Remove Old Version.Outputs[OLE DB Command Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Command Error Output"
+                      synchronousInputId="Package\Task2\task 2\Remove Old Version.Inputs[OLE DB Command Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Remove Old Version.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Remove Old Version.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Remove Old Version.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Remove Old Version.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT * FROM Employee_Q2 where Update_Date &gt; ?</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{9C53DED5-F938-4B71-A9D2-CCD28445B97F};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]"
+                          name="ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Name]"
+                          name="Name"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[City]"
+                          name="City"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Email]"
+                          name="Email"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Update_Date]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[Update_Date]"
+                          length="10"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Update_Date]"
+                          name="Update_Date"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Name" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="Email" />
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].ExternalColumns[Update_Date]"
+                          dataType="wstr"
+                          length="10"
+                          name="Update_Date" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[ID]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[ID]"
+                          name="ID" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[Name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[Name]"
+                          name="Name" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[City]"
+                          name="City" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[Email]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[Email]"
+                          name="Email" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[Update_Date]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[Update_Date]"
+                          name="Update_Date" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Task2\task 2\Update History"
+                  componentClassID="Microsoft.OLEDBCommand"
+                  contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+                  description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+                  name="Update History"
+                  usesDispositions="true"
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE Employee_History
+SET End_Date = ?
+WHERE End_Date IS NULL AND Original_ID = ?;
+</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Task2\task 2\Update History.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      connectionManagerRefId="Package.ConnectionManagers[DESKTOP-KAFQMC6.DW_Ass]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input]"
+                      errorOrTruncationOperation="Command Execution"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Command Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input].Columns[Update_Date]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="Update_Date"
+                          externalMetadataColumnId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[Update_Date]" />
+                        <inputColumn
+                          refId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input].Columns[ID]"
+                          cachedDataType="i4"
+                          cachedName="ID"
+                          externalMetadataColumnId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                          lineageId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output].Columns[ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                          dataType="wstr"
+                          length="10"
+                          name="Param_0">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                        <externalMetadataColumn
+                          refId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                          dataType="i4"
+                          name="Param_1">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                              name="DBParamInfoFlags">81</property>
+                          </properties>
+                        </externalMetadataColumn>
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Task2\task 2\Update History.Outputs[OLE DB Command Output]"
+                      exclusionGroup="1"
+                      name="OLE DB Command Output"
+                      synchronousInputId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Task2\task 2\Update History.Outputs[OLE DB Command Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Command Error Output"
+                      synchronousInputId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Task2\task 2\Update History.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Update History.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Task2\task 2\Update History.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Task2\task 2\Update History.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Task2\task 2.Paths[Change]"
+                  endId="Package\Task2\task 2\Update History.Inputs[OLE DB Command Input]"
+                  name="Change"
+                  startId="Package\Task2\task 2\Check If Email Or City Change.Outputs[Change]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[Lookup Match Output]"
+                  endId="Package\Task2\task 2\Check If Email Or City Change.Inputs[Conditional Split Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Task2\task 2\Join With History.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[Lookup No Match Output]"
+                  endId="Package\Task2\task 2\Multicast.Inputs[Multicast Input 1]"
+                  name="Lookup No Match Output"
+                  startId="Package\Task2\task 2\Join With History.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[Multicast Output 1]"
+                  endId="Package\Task2\task 2\OLE DB Destination 2.Inputs[OLE DB Destination Input]"
+                  name="Multicast Output 1"
+                  startId="Package\Task2\task 2\Multicast.Outputs[Multicast Output 1]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[Multicast Output 11]"
+                  endId="Package\Task2\task 2\OLE DB Destination 2 1.Inputs[OLE DB Destination Input]"
+                  name="Multicast Output 1"
+                  startId="Package\Task2\task 2\Multicast 1.Outputs[Multicast Output 1]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[Multicast Output 2]"
+                  endId="Package\Task2\task 2\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+                  name="Multicast Output 2"
+                  startId="Package\Task2\task 2\Multicast.Outputs[Multicast Output 2]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[Multicast Output 21]"
+                  endId="Package\Task2\task 2\OLE DB Destination 1 1.Inputs[OLE DB Destination Input]"
+                  name="Multicast Output 2"
+                  startId="Package\Task2\task 2\Multicast 1.Outputs[Multicast Output 2]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[OLE DB Command Output]"
+                  endId="Package\Task2\task 2\Remove Old Version.Inputs[OLE DB Command Input]"
+                  name="OLE DB Command Output"
+                  startId="Package\Task2\task 2\Update History.Outputs[OLE DB Command Output]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[OLE DB Command Output1]"
+                  endId="Package\Task2\task 2\Multicast 1.Inputs[Multicast Input 1]"
+                  name="OLE DB Command Output"
+                  startId="Package\Task2\task 2\Remove Old Version.Outputs[OLE DB Command Output]" />
+                <path
+                  refId="Package\Task2\task 2.Paths[OLE DB Source Output]"
+                  endId="Package\Task2\task 2\Join With History.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Task2\task 2\Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Task2.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{C86E7579-AF9B-4C48-A264-DB6D93264C1A}"
+          DTS:From="Package\Task2\Get OldDate"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Task2\task 2" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,41.6"
+          Id="Package\Task2\Get OldDate"
+          TopLeft="81.5333115693601,26.399999349117" />
+        <NodeLayout
+          Size="106.4,41.6"
+          Id="Package\Task2\task 2"
+          TopLeft="98.1999773254006,151.133331097431" />
+        <EdgeLayout
+          Id="Package\Task2.PrecedenceConstraints[Constraint]"
+          TopLeft="150.46664444738,67.999999349117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,83.133331748314"
+              Start="0,0"
+              End="0,75.633331748314">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,75.633331748314" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="316.8,271.2"
+          Size="316.8,314.4"
+          Id="Package\Task2"
+          TopLeft="284.999984428288,67.5999995299177" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Task2\task 2">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="128,44.8"
+          Id="Package\Task2\task 2\Multicast 1"
+          TopLeft="528.566647315854,559.199996890227" />
+        <NodeLayout
+          Size="174.4,41.6"
+          Id="Package\Task2\task 2\Remove Old Version"
+          TopLeft="504.133313481676,469.799997667671" />
+        <NodeLayout
+          Size="119.2,41.6"
+          Id="Package\Task2\task 2\Multicast"
+          TopLeft="240.833320174781,305.933331205911" />
+        <NodeLayout
+          Size="111.2,41.6"
+          Id="Package\Task2\task 2\Source"
+          TopLeft="358.333313754864,62.5333330681589" />
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\Task2\task 2\OLE DB Destination 1 1"
+          TopLeft="663.3332970904,685.199996709426" />
+        <NodeLayout
+          Size="188.8,41.6"
+          Id="Package\Task2\task 2\OLE DB Destination 2 1"
+          TopLeft="365.833313345082,690.399996673267" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\Task2\task 2\OLE DB Destination 2"
+          TopLeft="55.8333302827346,435.933330301908" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\Task2\task 2\OLE DB Destination 1"
+          TopLeft="266.666652096644,432.466663659347" />
+        <NodeLayout
+          Size="147.2,41.6"
+          Id="Package\Task2\task 2\Update History"
+          TopLeft="520.833304876255,400.399997215668" />
+        <NodeLayout
+          Size="219.2,41.6"
+          Id="Package\Task2\task 2\Check If Email Or City Change"
+          TopLeft="477.499973910551,322.399997758071" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Task2\task 2\Join With History"
+          TopLeft="325.833315530586,187.199998698235" />
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[OLE DB Source Output]"
+          TopLeft="413.933313754864,104.133333068159">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.0999982242784,83.0666656300761"
+              Start="0,0"
+              End="-10.0999982242784,75.5666656300761">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5333328150381" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,37.5333328150381"
+                    Point2="0,41.5333328150381"
+                    Point3="-4,41.5333328150381" />
+                  <mssgle:LineSegment
+                    End="-6.09999822427835,41.5333328150381" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.09999822427835,41.5333328150381"
+                    Point2="-10.0999982242784,41.5333328150381"
+                    Point3="-10.0999982242784,45.5333328150381" />
+                  <mssgle:LineSegment
+                    End="-10.0999982242784,75.5666656300761" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[OLE DB Command Output1]"
+          TopLeft="591.949980398765,511.399997667671">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.7999992225563"
+              Start="0,0"
+              End="0,40.2999992225563">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.2999992225563" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[OLE DB Command Output]"
+          TopLeft="592.883309178965,441.999997215668">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.8000004520024"
+              Start="0,0"
+              End="0,20.3000004520024">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.3000004520024" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[Multicast Output 21]"
+          TopLeft="612.566647315854,603.999996890227">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="139.566649774545,81.199999819199"
+              Start="0,0"
+              End="139.566649774545,73.699999819199">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.0814814078218" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.0814814078218"
+                    Point2="0,33.0814814078218"
+                    Point3="4,33.0814814078218" />
+                  <mssgle:LineSegment
+                    End="135.566649774545,33.0814814078218" />
+                  <mssgle:CubicBezierSegment
+                    Point1="135.566649774545,33.0814814078218"
+                    Point2="139.566649774545,33.0814814078218"
+                    Point3="139.566649774545,37.0814814078218" />
+                  <mssgle:LineSegment
+                    End="139.566649774545,73.699999819199" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[Multicast Output 2]"
+          TopLeft="318.966653508114,347.533331205911">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="37.6999985885292,84.933332453436"
+              Start="0,0"
+              End="37.6999985885292,77.433332453436">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.6482998617991" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.6482998617991"
+                    Point2="0,34.6482998617991"
+                    Point3="4,34.6482998617991" />
+                  <mssgle:LineSegment
+                    End="33.6999985885292,34.6482998617991" />
+                  <mssgle:CubicBezierSegment
+                    Point1="33.6999985885292,34.6482998617991"
+                    Point2="37.6999985885292,34.6482998617991"
+                    Point3="37.6999985885292,38.6482998617991" />
+                  <mssgle:LineSegment
+                    End="37.6999985885292,77.433332453436" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[Multicast Output 11]"
+          TopLeft="572.566647315854,603.999996890227">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-112.333333970772,86.3999997830401"
+              Start="0,0"
+              End="-112.333333970772,78.8999997830401">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.1999999116089" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.1999999116089"
+                    Point2="0,35.1999999116089"
+                    Point3="-4,35.1999999116089" />
+                  <mssgle:LineSegment
+                    End="-108.333333970772,35.1999999116089" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-108.333333970772,35.1999999116089"
+                    Point2="-112.333333970772,35.1999999116089"
+                    Point3="-112.333333970772,39.1999999116089" />
+                  <mssgle:LineSegment
+                    End="-112.333333970772,78.8999997830401" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[Multicast Output 1]"
+          TopLeft="281.899986841448,347.533331205911">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-136.066656558713,88.399999095997"
+              Start="0,0"
+              End="-136.066656558713,80.899999095997">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.0625161875061" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.0625161875061"
+                    Point2="0,36.0625161875061"
+                    Point3="-4,36.0625161875061" />
+                  <mssgle:LineSegment
+                    End="-132.066656558713,36.0625161875061" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-132.066656558713,36.0625161875061"
+                    Point2="-136.066656558713,36.0625161875061"
+                    Point3="-136.066656558713,40.0625161875061" />
+                  <mssgle:LineSegment
+                    End="-136.066656558713,80.899999095997" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[Lookup No Match Output]"
+          TopLeft="379.166648863919,228.799998698235">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-78.7333286891383,77.133332507676"
+              Start="0,0"
+              End="-78.7333286891383,69.633332507676">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.323180713777" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.323180713777"
+                    Point2="0,31.323180713777"
+                    Point3="-4,31.323180713777" />
+                  <mssgle:LineSegment
+                    End="-74.7333286891383,31.323180713777" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-74.7333286891383,31.323180713777"
+                    Point2="-78.7333286891383,31.323180713777"
+                    Point3="-78.7333286891383,35.323180713777" />
+                  <mssgle:LineSegment
+                    End="-78.7333286891383,69.633332507676" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-95.1730510633191,36.323180713777,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[Lookup Match Output]"
+          TopLeft="428.499982197253,228.799998698235">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="158.599991713298,93.599999059836"
+              Start="0,0"
+              End="158.599991713298,86.099999059836">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.0101519024715" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.0101519024715"
+                    Point2="0,38.0101519024715"
+                    Point3="4,38.0101519024715" />
+                  <mssgle:LineSegment
+                    End="154.599991713298,38.0101519024715" />
+                  <mssgle:CubicBezierSegment
+                    Point1="154.599991713298,38.0101519024715"
+                    Point2="158.599991713298,38.0101519024715"
+                    Point3="158.599991713298,42.0101519024715" />
+                  <mssgle:LineSegment
+                    End="158.599991713298,86.099999059836" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="31.108609137899,43.0101519024715,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Task2\task 2.Paths[Change]"
+          TopLeft="590.766639393403,363.999997758071">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.3999994575972"
+              Start="0,0"
+              End="0,28.8999994575972">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.8999994575972" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.3138671875,8.6184567600486,34.627734375,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Task2\task 2\Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Task2\task 2\OLE DB Destination 1 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Task2\task 2\OLE DB Destination 2 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Task2\task 2\OLE DB Destination 2">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Task2\task 2\OLE DB Destination 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Task2\task 2\Join With History">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
